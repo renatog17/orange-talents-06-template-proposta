@@ -12,7 +12,8 @@ import javax.validation.constraints.Positive;
 @Entity
 public class Proposta {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private @NotBlank String cpfOuCnpj;
 	private @NotBlank @Email String email;
@@ -20,13 +21,18 @@ public class Proposta {
 	private @NotBlank String nome;
 	private @NotNull @Positive Double salario;
 
+	@Deprecated
+	public Proposta() {
+		super();
+	}
+
 	public Proposta(@NotBlank String cpfOuCnpj, @NotBlank @Email String email, @NotBlank String endereco,
 			@NotBlank String nome, @NotNull @Positive Double salario) {
-				this.cpfOuCnpj = cpfOuCnpj;
-				this.email = email;
-				this.endereco = endereco;
-				this.nome = nome;
-				this.salario = salario;
+		this.cpfOuCnpj = cpfOuCnpj;
+		this.email = email;
+		this.endereco = endereco;
+		this.nome = nome;
+		this.salario = salario;
 	}
 
 	public Long getId() {

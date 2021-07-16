@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zup.renato.proposta.controller.validacao.CPFOrCNPJ;
+import br.com.zup.renato.proposta.controller.validacao.UniqueValue;
 import br.com.zup.renato.proposta.model.Proposta;
 
 public class PropostaForm {
