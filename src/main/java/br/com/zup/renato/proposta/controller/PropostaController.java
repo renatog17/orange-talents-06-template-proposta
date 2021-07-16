@@ -1,5 +1,6 @@
 package br.com.zup.renato.proposta.controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class PropostaController {
 	PropostaRepository propostaRepository;
 	
 	@PostMapping
+	@Transactional
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid PropostaForm propostaForm, UriComponentsBuilder uriComponentsBuilder){
 		Proposta proposta = propostaForm.toModel();
 		propostaRepository.save(proposta);
