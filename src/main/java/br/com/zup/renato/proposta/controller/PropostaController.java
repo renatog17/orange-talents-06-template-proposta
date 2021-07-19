@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.zup.renato.proposta.client.VerificaStatusClient;
+import br.com.zup.renato.proposta.client.VerificaStatusRequest;
+import br.com.zup.renato.proposta.client.VerificaStatusSend;
 import br.com.zup.renato.proposta.controller.form.PropostaForm;
 import br.com.zup.renato.proposta.model.Proposta;
+import br.com.zup.renato.proposta.model.enums.StatusRestricao;
 import br.com.zup.renato.proposta.repository.PropostaRepository;
 
 @RestController
@@ -24,7 +28,9 @@ import br.com.zup.renato.proposta.repository.PropostaRepository;
 public class PropostaController {
 
 	@Autowired
-	PropostaRepository propostaRepository;
+	private PropostaRepository propostaRepository;
+	@Autowired
+	private VerificaStatusClient verificaStatusClient;
 	
 	@PostMapping
 	@Transactional
@@ -38,6 +44,20 @@ public class PropostaController {
 		Proposta proposta = propostaForm.toModel();
 		
 		propostaRepository.save(proposta);
+		
+		VerificaStatusSend verificaStatusSend = new VerificaStatusSend(proposta.getCpfOuCnpj(), proposta.getNome(), proposta.getId().toString());
+		VerificaStatusRequest verifica = null;
+		try {
+		verifica = verificaStatusClient.verifica(verificaStatusSend);
+		}catch (Exception e) {
+			proposta.setIsElegivel(StatusRestricao.COM_RESTRICAO);
+		}
+		if(verifica!=null && verifica.getResultadoSolicitacao().equals("SEM_RESTRICAO")) {
+			proposta.setIsElegivel(StatusRestricao.SEM_RESTRICAO);
+		}
+		propostaRepository.save(proposta);
+		
+		
 		return ResponseEntity.created(uriComponentsBuilder.path("/propostas/{id}")
 				.buildAndExpand(proposta.getId()).toUri()).body(proposta);
 	}

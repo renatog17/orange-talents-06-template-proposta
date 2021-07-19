@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import br.com.zup.renato.proposta.model.enums.StatusRestricao;
+
 @Entity
 public class Proposta {
 
@@ -20,6 +22,7 @@ public class Proposta {
 	private @NotBlank String endereco;
 	private @NotBlank String nome;
 	private @NotNull @Positive Double salario;
+	private StatusRestricao isElegivel;
 
 	@Deprecated
 	public Proposta() {
@@ -38,4 +41,19 @@ public class Proposta {
 	public Long getId() {
 		return id;
 	}
+
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setIsElegivel(StatusRestricao isElegivel) {
+		this.isElegivel = isElegivel;
+	}
+
+	
+	
 }
