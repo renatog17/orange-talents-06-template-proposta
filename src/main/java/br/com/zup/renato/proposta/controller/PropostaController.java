@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import br.com.zup.renato.proposta.client.VerificaStatusSend;
 import br.com.zup.renato.proposta.clientcartao.DadosCartaoClient;
 import br.com.zup.renato.proposta.clientcartao.DadosCartaoRequest;
 import br.com.zup.renato.proposta.clientcartao.DadosCartaoSend;
+import br.com.zup.renato.proposta.controller.dto.PropostaDto;
 import br.com.zup.renato.proposta.controller.form.PropostaForm;
 import br.com.zup.renato.proposta.model.Cartao;
 import br.com.zup.renato.proposta.model.Proposta;
@@ -56,7 +59,7 @@ public class PropostaController {
 		propostaRepository.save(proposta);
 
 		StatusRestricao statusRestricao = consultaExterna(proposta);
-		proposta.setIsElegivel(statusRestricao);
+		proposta.setStatusRestricao(statusRestricao);
 
 		propostaRepository.save(proposta);
 		
@@ -66,6 +69,17 @@ public class PropostaController {
 				.body(proposta);
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<PropostaDto> consultar(@PathVariable Long id){
+		Optional<Proposta> proposta = propostaRepository.findById(id);
+		if(proposta.isPresent()) {
+			System.out.println(proposta.get().getStatusRestricao()+"!!!");
+			PropostaDto propostaDto = new PropostaDto(proposta.get());
+			return ResponseEntity.ok(propostaDto);
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
 	private StatusRestricao consultaExterna(Proposta proposta) {
 		VerificaStatusSend verificaStatusSend = new VerificaStatusSend(proposta.getCpfOuCnpj(), proposta.getNome(),
 				proposta.getId().toString());
@@ -73,7 +87,7 @@ public class PropostaController {
 		try {
 			verifica = verificaStatusClient.verifica(verificaStatusSend);
 		} catch (Exception e) {
-			proposta.setIsElegivel(StatusRestricao.COM_RESTRICAO);
+			proposta.setStatusRestricao(StatusRestricao.COM_RESTRICAO);
 			return StatusRestricao.COM_RESTRICAO;
 		}
 		if (verifica != null && verifica.getResultadoSolicitacao().equals("SEM_RESTRICAO")) {

@@ -22,7 +22,7 @@ public class Proposta {
 	private @NotBlank String endereco;
 	private @NotBlank String nome;
 	private @NotNull @Positive Double salario;
-	private StatusRestricao isElegivel;
+	private StatusRestricao statusRestricao;
 
 	@Deprecated
 	public Proposta() {
@@ -50,8 +50,12 @@ public class Proposta {
 		return nome;
 	}
 
-	public void setIsElegivel(StatusRestricao isElegivel) {
-		this.isElegivel = isElegivel;
+	public StatusRestricao getStatusRestricao() {
+		return statusRestricao;
+	}
+
+	public void setStatusRestricao(StatusRestricao statusRestricao) {
+		this.statusRestricao = statusRestricao;
 	}
 
 	
