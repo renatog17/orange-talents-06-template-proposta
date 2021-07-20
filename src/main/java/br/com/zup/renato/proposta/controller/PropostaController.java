@@ -59,6 +59,7 @@ public class PropostaController {
 		proposta.setIsElegivel(statusRestricao);
 
 		propostaRepository.save(proposta);
+		
 		criaCartao(proposta);
 		return ResponseEntity
 				.created(uriComponentsBuilder.path("/propostas/{id}").buildAndExpand(proposta.getId()).toUri())
