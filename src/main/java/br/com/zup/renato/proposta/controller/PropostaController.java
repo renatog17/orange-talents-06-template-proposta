@@ -43,12 +43,6 @@ public class PropostaController {
 	private VerificaStatusClient verificaStatusClient;
 	@Autowired
 	private DadosCartaoClient dadosCartaoClient;
-
-	@GetMapping("/teste")
-	public ResponseEntity<PropostaDto> teste(){
-		System.out.println("TUDO ESTÁ FUNCIONANDO!!!");
-		return ResponseEntity.notFound().build();
-	}
 	
 	@PostMapping
 	@Transactional
