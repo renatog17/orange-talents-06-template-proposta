@@ -134,7 +134,38 @@ services:
       VAULT_TOKEN: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_ADDR: http://127.0.0.1:8200
 
+  app:
+    image: proposta-aplicacao
+    container_name: app
+    ports:
+      - 8080:80
+    depends_on:
+      - data-base
+
+  data-base:
+    image: mysql
+    container_name: data-base
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=loja
+  
+
+
+#  db:
+#    image: mysql:5.7
+#    volumes:
+#      - db_data:/var/lib/mysql
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: proposta
+#      MYSQL_TCP_PORT: 3307
+
+
 volumes:
+  db_data: {}
+  wordpress_data: {}
   grafana-volume:
   prometheus-volume:
   postgres-volume:

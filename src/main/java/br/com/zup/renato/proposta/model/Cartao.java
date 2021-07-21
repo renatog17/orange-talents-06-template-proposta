@@ -20,10 +20,19 @@ public class Cartao {
 	@NotNull
 	private Proposta proposta;
 
+	@Deprecated
+	public Cartao() {
+		super();
+	}
+
 	public Cartao(@NotBlank String idCartao, @NotNull Proposta proposta) {
 		super();
 		this.idCartao = idCartao;
 		this.proposta = proposta;
+	}
+
+	public String getIdCartao() {
+		return idCartao;
 	}
 
 }
