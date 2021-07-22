@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.client;
+package br.com.zup.renato.proposta.comunicacao.clientproposta;
 
 public class VerificaStatusSend {
 	private String documento;

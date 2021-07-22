@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.zup.renato.proposta.client.VerificaStatusClient;
-import br.com.zup.renato.proposta.client.VerificaStatusRequest;
-import br.com.zup.renato.proposta.client.VerificaStatusSend;
-import br.com.zup.renato.proposta.clientcartao.DadosCartaoClient;
-import br.com.zup.renato.proposta.clientcartao.DadosCartaoRequest;
-import br.com.zup.renato.proposta.clientcartao.DadosCartaoSend;
+import br.com.zup.renato.proposta.comunicacao.clientcartao.DadosCartaoClient;
+import br.com.zup.renato.proposta.comunicacao.clientcartao.DadosCartaoRequest;
+import br.com.zup.renato.proposta.comunicacao.clientcartao.DadosCartaoSend;
+import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusClient;
+import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusRequest;
+import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusSend;
 import br.com.zup.renato.proposta.controller.dto.PropostaDto;
 import br.com.zup.renato.proposta.controller.form.PropostaForm;
 import br.com.zup.renato.proposta.model.Cartao;

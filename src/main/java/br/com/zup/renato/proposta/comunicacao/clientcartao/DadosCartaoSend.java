@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.clientcartao;
+package br.com.zup.renato.proposta.comunicacao.clientcartao;
 
 public class DadosCartaoSend {
 	private String documento;
