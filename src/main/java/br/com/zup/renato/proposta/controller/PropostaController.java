@@ -25,6 +25,7 @@ import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusReque
 import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusSend;
 import br.com.zup.renato.proposta.controller.dto.PropostaDto;
 import br.com.zup.renato.proposta.controller.form.PropostaForm;
+import br.com.zup.renato.proposta.metricas.MinhasMetricas;
 import br.com.zup.renato.proposta.model.Cartao;
 import br.com.zup.renato.proposta.model.Proposta;
 import br.com.zup.renato.proposta.model.enums.StatusRestricao;
@@ -43,6 +44,8 @@ public class PropostaController {
 	private VerificaStatusClient verificaStatusClient;
 	@Autowired
 	private DadosCartaoClient dadosCartaoClient;
+	@Autowired
+	private MinhasMetricas minhasMetricas;
 	
 	@PostMapping
 	@Transactional
@@ -64,6 +67,7 @@ public class PropostaController {
 		propostaRepository.save(proposta);
 		
 		criaCartao(proposta);
+		minhasMetricas.meuContador();
 		return ResponseEntity
 				.created(uriComponentsBuilder.path("/propostas/{id}").buildAndExpand(proposta.getId()).toUri())
 				.body(proposta);

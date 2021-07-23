@@ -8,6 +8,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import br.com.zup.renato.proposta.model.enums.StatusCartao;
+
 @Entity
 public class Cartao {
 
@@ -19,6 +21,7 @@ public class Cartao {
 	@OneToOne
 	@NotNull
 	private Proposta proposta;
+	private StatusCartao statusCartao;
 
 	@Deprecated
 	public Cartao() {
@@ -29,10 +32,17 @@ public class Cartao {
 		super();
 		this.idCartao = idCartao;
 		this.proposta = proposta;
+		statusCartao = StatusCartao.NAO_BLOQUEADO;
 	}
 
 	public String getIdCartao() {
 		return idCartao;
 	}
+
+	public void bloquearCartao() {
+		this.statusCartao = StatusCartao.BLOQUEADO;
+	}
+	
+	
 
 }
