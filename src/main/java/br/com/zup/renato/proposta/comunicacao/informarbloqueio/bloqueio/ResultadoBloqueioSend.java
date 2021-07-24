@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.comunicacao.informarbloqueio;
+package br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio;
 
 public class ResultadoBloqueioSend {
 

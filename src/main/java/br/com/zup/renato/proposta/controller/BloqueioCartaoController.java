@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zup.renato.proposta.comunicacao.informarbloqueio.ResultadoBloqueioClient;
-import br.com.zup.renato.proposta.comunicacao.informarbloqueio.ResultadoBloqueioRequest;
-import br.com.zup.renato.proposta.comunicacao.informarbloqueio.ResultadoBloqueioSend;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.CartoesClient;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio.ResultadoBloqueioResponse;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio.ResultadoBloqueioSend;
 import br.com.zup.renato.proposta.controller.validacao.erropadronizado.ApiErroException;
 import br.com.zup.renato.proposta.model.BloqueioCartao;
 import br.com.zup.renato.proposta.model.Cartao;
@@ -31,7 +31,7 @@ public class BloqueioCartaoController {
 	@Autowired
 	private BloqueioCartaoRepository bloqueioCartaoRepository;
 	@Autowired
-	private ResultadoBloqueioClient resultadoBloqueioClient;
+	private CartoesClient resultadoBloqueioClient;
 
 	@PostMapping("/{idCartao}")
 	@Transactional
@@ -45,7 +45,7 @@ public class BloqueioCartaoController {
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Este cartão já foi bloqueado");
 		}
 		ResultadoBloqueioSend send = new ResultadoBloqueioSend("proposta");
-		ResultadoBloqueioRequest informarBloqueio;
+		ResultadoBloqueioResponse informarBloqueio;
 		try {	
 			informarBloqueio = resultadoBloqueioClient.informarBloqueio(idCartao, send);
 			BloqueioCartao bloqueioCartao2 = new BloqueioCartao(request.getRemoteAddr(), request.getRemoteUser(), cartao.get());

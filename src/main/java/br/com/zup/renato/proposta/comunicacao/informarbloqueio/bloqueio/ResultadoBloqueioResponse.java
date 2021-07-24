@@ -1,9 +1,9 @@
-package br.com.zup.renato.proposta.comunicacao.informarbloqueio;
+package br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
-public class ResultadoBloqueioRequest implements ErrorDecoder{
+public class ResultadoBloqueioResponse implements ErrorDecoder{
 
 	private String resultado;
 

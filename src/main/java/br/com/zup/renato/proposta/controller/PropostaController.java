@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.zup.renato.proposta.comunicacao.clientcartao.DadosCartaoClient;
-import br.com.zup.renato.proposta.comunicacao.clientcartao.DadosCartaoRequest;
-import br.com.zup.renato.proposta.comunicacao.clientcartao.DadosCartaoSend;
 import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusClient;
 import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusRequest;
 import br.com.zup.renato.proposta.comunicacao.clientproposta.VerificaStatusSend;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.CartoesClient;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.dadoscartao.DadosCartaoResponse;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.dadoscartao.DadosCartaoSend;
 import br.com.zup.renato.proposta.controller.dto.PropostaDto;
 import br.com.zup.renato.proposta.controller.form.PropostaForm;
 import br.com.zup.renato.proposta.metricas.MinhasMetricas;
@@ -43,7 +43,7 @@ public class PropostaController {
 	@Autowired
 	private VerificaStatusClient verificaStatusClient;
 	@Autowired
-	private DadosCartaoClient dadosCartaoClient;
+	private CartoesClient cartoesClient;
 	@Autowired
 	private MinhasMetricas minhasMetricas;
 	
@@ -103,7 +103,7 @@ public class PropostaController {
 	private void criaCartao(Proposta proposta) {
 		DadosCartaoSend dadosCartaoSend = new DadosCartaoSend(proposta.getCpfOuCnpj(), proposta.getNome(),
 				proposta.getId().toString());
-		DadosCartaoRequest verifica = dadosCartaoClient.verifica(dadosCartaoSend);
+		DadosCartaoResponse verifica = cartoesClient.verifica(dadosCartaoSend);
 		System.out.println(verifica.getId());
 		Cartao cartao = new Cartao(verifica.getId(), proposta);
 		cartaoRepository.save(cartao);

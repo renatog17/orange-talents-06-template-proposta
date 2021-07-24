@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.CartoesClient;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.viagem.InformarViagemResponse;
+import br.com.zup.renato.proposta.comunicacao.informarbloqueio.viagem.InformarViagemSend;
 import br.com.zup.renato.proposta.controller.form.AvisoViagemForm;
 import br.com.zup.renato.proposta.controller.validacao.erropadronizado.ApiErroException;
 import br.com.zup.renato.proposta.model.AvisoViagem;
@@ -29,6 +32,8 @@ public class ViagemController {
 	private CartaoRepository cartaoRepository;
 	@Autowired
 	private AvisoViagemRepository avisoViagemRepository;
+	@Autowired
+	private CartoesClient cartoesClient;
 	
 	@PostMapping("/{idCartao}")
 	public ResponseEntity<?> avisarViagem(@PathVariable String idCartao ,@Valid @RequestBody AvisoViagemForm avisoViagemForm,
@@ -37,8 +42,17 @@ public class ViagemController {
 		if(cartao.isEmpty()) {
 			throw new ApiErroException(HttpStatus.NOT_FOUND, "Não foi encontrado um cartão para este id");
 		}
-		AvisoViagem avisoViagem = avisoViagemForm.toModel(cartao.get(), request);
-		avisoViagemRepository.save(avisoViagem);
-		return ResponseEntity.ok().build();
+		InformarViagemSend send = new InformarViagemSend(avisoViagemForm.getDestinoViagem(), avisoViagemForm.getTerminoViagem().toString());;
+		try {			
+			InformarViagemResponse informarViagem = cartoesClient.informarViagem(idCartao, send);
+			System.out.println(informarViagem.getResultado());
+			AvisoViagem avisoViagem = avisoViagemForm.toModel(cartao.get(), request);
+			avisoViagemRepository.save(avisoViagem);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Não foi possível informar ao sistema externo");
+		}
+		
 	}
 }
