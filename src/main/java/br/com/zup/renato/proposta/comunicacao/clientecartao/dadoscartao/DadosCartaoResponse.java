@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.comunicacao.informarbloqueio.dadoscartao;
+package br.com.zup.renato.proposta.comunicacao.clientecartao.dadoscartao;
 
 public class DadosCartaoResponse {
 	//id do cartão

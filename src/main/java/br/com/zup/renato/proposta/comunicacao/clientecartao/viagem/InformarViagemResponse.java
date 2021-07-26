@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.comunicacao.informarbloqueio.viagem;
+package br.com.zup.renato.proposta.comunicacao.clientecartao.viagem;
 
 public class InformarViagemResponse {
 

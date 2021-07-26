@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zup.renato.proposta.comunicacao.informarbloqueio.CartoesClient;
-import br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio.ResultadoBloqueioResponse;
-import br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio.ResultadoBloqueioSend;
+import br.com.zup.renato.proposta.comunicacao.clientecartao.CartoesClient;
+import br.com.zup.renato.proposta.comunicacao.clientecartao.bloqueio.ResultadoBloqueioResponse;
+import br.com.zup.renato.proposta.comunicacao.clientecartao.bloqueio.ResultadoBloqueioSend;
 import br.com.zup.renato.proposta.controller.validacao.erropadronizado.ApiErroException;
 import br.com.zup.renato.proposta.model.BloqueioCartao;
 import br.com.zup.renato.proposta.model.Cartao;

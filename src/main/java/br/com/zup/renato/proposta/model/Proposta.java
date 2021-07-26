@@ -58,6 +58,8 @@ public class Proposta {
 		this.statusRestricao = statusRestricao;
 	}
 
-	
-	
+	public String getEmail() {
+		return email;
+	}
+
 }

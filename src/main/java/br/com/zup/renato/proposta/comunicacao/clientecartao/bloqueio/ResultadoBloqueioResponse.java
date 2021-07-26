@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.comunicacao.informarbloqueio.bloqueio;
+package br.com.zup.renato.proposta.comunicacao.clientecartao.bloqueio;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;

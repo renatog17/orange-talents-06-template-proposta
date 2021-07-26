@@ -1,4 +1,4 @@
-package br.com.zup.renato.proposta.comunicacao.informarbloqueio.viagem;
+package br.com.zup.renato.proposta.comunicacao.clientecartao.viagem;
 
 import java.time.LocalDate;
 
