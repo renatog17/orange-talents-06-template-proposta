@@ -23,6 +23,12 @@ public class Carteira {
 	@ManyToOne
 	private Cartao cartao;
 
+	@Deprecated
+	public Carteira() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Carteira(@NotBlank String idCarteira, @NotBlank String tipoCarteira, @NotNull Cartao cartao) {
 		super();
 		this.idCarteira = idCarteira;
@@ -34,6 +40,10 @@ public class Carteira {
 		return idCarteira;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Carteira [id=" + id + ", idCarteira=" + idCarteira + ", tipoCarteira=" + tipoCarteira + ", cartao="
+				+ cartao + "]";
+	}
+
 }

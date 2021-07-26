@@ -9,4 +9,5 @@ import br.com.zup.renato.proposta.model.Carteira;
 
 public interface CarteiraRepository extends JpaRepository<Carteira, Long> {
 
+	Optional<Carteira> findBytipoCarteiraAndCartao(String tipoCarteira, Cartao cartao);
 }
