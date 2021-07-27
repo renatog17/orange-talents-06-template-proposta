@@ -70,7 +70,7 @@ public class PropostaController {
 		minhasMetricas.meuContador();
 		return ResponseEntity
 				.created(uriComponentsBuilder.path("/propostas/{id}").buildAndExpand(proposta.getId()).toUri())
-				.body(proposta);
+				.body(propostaForm);
 	}
 
 	@GetMapping("/{id}")

@@ -8,6 +8,7 @@ import javax.validation.constraints.Positive;
 import br.com.zup.renato.proposta.controller.validacao.CPFOrCNPJ;
 import br.com.zup.renato.proposta.controller.validacao.UniqueValue;
 import br.com.zup.renato.proposta.model.Proposta;
+import br.com.zup.renato.proposta.model.util.CpfOuCnpjLimpo;
 
 public class PropostaForm {
 
@@ -44,7 +45,7 @@ public class PropostaForm {
 	}
 	
 	public Proposta toModel() {
-		return new Proposta(this.cpfOuCnpj, this.email, this.endereco, this.nome, this.salario);
+		return new Proposta(new CpfOuCnpjLimpo(this.cpfOuCnpj), this.email, this.endereco, this.nome, this.salario);
 	}
 
 }

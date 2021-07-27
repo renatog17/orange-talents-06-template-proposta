@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zup.renato.proposta.model.enums.StatusRestricao;
+import br.com.zup.renato.proposta.model.util.CpfOuCnpjLimpo;
 
 @Entity
 public class Proposta {
@@ -29,9 +30,9 @@ public class Proposta {
 		super();
 	}
 
-	public Proposta(@NotBlank String cpfOuCnpj, @NotBlank @Email String email, @NotBlank String endereco,
+	public Proposta(@NotBlank CpfOuCnpjLimpo cpfOuCnpjLimpo, @NotBlank @Email String email, @NotBlank String endereco,
 			@NotBlank String nome, @NotNull @Positive Double salario) {
-		this.cpfOuCnpj = cpfOuCnpj;
+		this.cpfOuCnpj = cpfOuCnpjLimpo.hash();
 		this.email = email;
 		this.endereco = endereco;
 		this.nome = nome;
